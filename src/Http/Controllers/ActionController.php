@@ -13,12 +13,11 @@ class ActionController extends NovaActionController
      * create custom request from base Nova ActionRequest
      *
      * @param  \Laravel\Nova\Http\Requests\ActionRequest  $request
-     * @return \Illuminate\Http\Response
      */
-    public function store(NovaActionRequest $request)
+    public function store(NovaActionRequest $request) : mixed
     {
         $action = $request->action();
-
+        
         if (in_array(ActionHasDependencies::class, class_uses_recursive($action))) {
             $request = ActionRequest::createFrom($request);
         }
